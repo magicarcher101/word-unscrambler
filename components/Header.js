@@ -18,6 +18,7 @@ export default function Header() {
           <Link href="/words-starting-with/a" className="hover:text-blue-200 transition-colors">Words Starting With</Link>
           <Link href="/words-ending-with/a" className="hover:text-blue-200 transition-colors">Words Ending With</Link>
           <Link href="/5-letter-words-starting-with/a" className="hover:text-blue-200 transition-colors">5 Letter Words</Link>
+          <Link href="/blog" className="hover:text-blue-200 transition-colors">Blog</Link>
         </nav>
 
         {/* Mobile hamburger */}
@@ -36,6 +37,7 @@ export default function Header() {
           <Link href="/words-ending-with/a" onClick={() => setMenuOpen(false)} className="hover:text-blue-200">📖 Words Ending With</Link>
           <Link href="/5-letter-words-starting-with/a" onClick={() => setMenuOpen(false)} className="hover:text-blue-200">🟩 5 Letter Words (Wordle)</Link>
           <Link href="/5-letter-words-ending-with/a" onClick={() => setMenuOpen(false)} className="hover:text-blue-200">🟩 5 Letter Words Ending With</Link>
+          <Link href="/blog" onClick={() => setMenuOpen(false)} className="hover:text-blue-200">✍️ Blog</Link>
         </div>
       )}
     </header>
