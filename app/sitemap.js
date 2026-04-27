@@ -4,31 +4,34 @@ export default function sitemap() {
   const today = new Date().toISOString();
 
   const staticPages = [
-    {
-      url: baseUrl,
-      lastModified: today,
-      changeFrequency: 'daily',
-      priority: 1.0,
-    },
+    { url: baseUrl, lastModified: today, changeFrequency: 'daily', priority: 1.0 },
   ];
 
   const wordsStartingWith = letters.map(letter => ({
     url: `${baseUrl}/words-starting-with/${letter}`,
-    lastModified: today,
-    changeFrequency: 'monthly',
-    priority: 0.8,
+    lastModified: today, changeFrequency: 'monthly', priority: 0.8,
   }));
 
   const wordsEndingWith = letters.map(letter => ({
     url: `${baseUrl}/words-ending-with/${letter}`,
-    lastModified: today,
-    changeFrequency: 'monthly',
-    priority: 0.8,
+    lastModified: today, changeFrequency: 'monthly', priority: 0.8,
+  }));
+
+  const fiveLetterStarting = letters.map(letter => ({
+    url: `${baseUrl}/5-letter-words-starting-with/${letter}`,
+    lastModified: today, changeFrequency: 'monthly', priority: 0.9,
+  }));
+
+  const fiveLetterEnding = letters.map(letter => ({
+    url: `${baseUrl}/5-letter-words-ending-with/${letter}`,
+    lastModified: today, changeFrequency: 'monthly', priority: 0.9,
   }));
 
   return [
     ...staticPages,
     ...wordsStartingWith,
     ...wordsEndingWith,
+    ...fiveLetterStarting,
+    ...fiveLetterEnding,
   ];
 }
