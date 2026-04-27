@@ -3,15 +3,15 @@
 import { useState, useCallback } from 'react';
 
 const DICTIONARIES = [
-  { id: 'enable', label: 'ENABLE', sub: 'Words with Friends' },
-  { id: 'twl', label: 'TWL', sub: 'Scrabble US/Canada' },
-  { id: 'sowpods', label: 'SOWPODS', sub: 'Scrabble UK/World' },
+  { id: 'enable', label: 'ENABLE (Words with Friends)' },
+  { id: 'twl', label: 'TWL (Scrabble US/Canada)' },
+  { id: 'sowpods', label: 'SOWPODS (Scrabble UK/World)' },
 ];
 
 const SCRABBLE_SCORES = {
-  a:1,b:3,c:3,d:2,e:1,f:4,g:2,h:4,i:1,j:8,
-  k:5,l:1,m:3,n:1,o:1,p:3,q:10,r:1,s:1,t:1,
-  u:1,v:4,w:4,x:8,y:4,z:10
+  a:1, b:3, c:3, d:2, e:1, f:4, g:2, h:4, i:1, j:8,
+  k:5, l:1, m:3, n:1, o:1, p:3, q:10, r:1, s:1, t:1,
+  u:1, v:4, w:4, x:8, y:4, z:10
 };
 
 function getWordScore(word) {
@@ -19,12 +19,12 @@ function getWordScore(word) {
 }
 
 function ScoreBadge({ score }) {
-  const color = score >= 15 ? 'bg-red-100 text-red-700 border-red-200' :
-                score >= 10 ? 'bg-orange-100 text-orange-700 border-orange-200' :
-                score >= 6  ? 'bg-yellow-100 text-yellow-700 border-yellow-200' :
-                              'bg-gray-100 text-gray-500 border-gray-200';
+  const color = score >= 15 ? 'bg-red-100 text-red-700' :
+                score >= 10 ? 'bg-orange-100 text-orange-700' :
+                score >= 6  ? 'bg-yellow-100 text-yellow-700' :
+                              'bg-gray-100 text-gray-500';
   return (
-    <span className={`text-xs font-bold px-1.5 py-0.5 rounded border ${color}`}>
+    <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${color}`}>
       {score}
     </span>
   );
@@ -38,7 +38,6 @@ export default function UnscrambleForm({ initialLetters = '' }) {
   const [mustInclude, setMustInclude] = useState('');
   const [minLength, setMinLength] = useState(2);
   const [sortBy, setSortBy] = useState('length');
-  const [showFilters, setShowFilters] = useState(false);
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -78,137 +77,96 @@ export default function UnscrambleForm({ initialLetters = '' }) {
 
   return (
     <div className="w-full">
-
-      {/* Main search input */}
-      <div className="flex gap-2 mb-2">
+      <div className="flex gap-2 mb-3">
         <input
           type="text"
           value={letters}
           onChange={e => setLetters(e.target.value.toUpperCase())}
           onKeyDown={handleKeyDown}
-          placeholder="Enter letters e.g. TABLES"
+          placeholder="Enter letters (e.g. TABLES)"
           maxLength={15}
-          className="flex-1 text-xl font-mono tracking-widest border-2 border-blue-200 rounded-xl px-5 py-4 focus:outline-none focus:border-blue-500 focus:shadow-lg uppercase bg-white shadow-sm transition-all"
+          className="flex-1 text-xl font-mono tracking-widest border-2 border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 uppercase"
           autoComplete="off"
           spellCheck="false"
         />
         <button
           onClick={handleUnscramble}
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 disabled:bg-blue-300 text-white font-bold px-8 py-4 rounded-xl transition-all text-lg shadow-sm hover:shadow-md"
+          className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-lg"
         >
           {loading ? '...' : 'Go'}
         </button>
       </div>
-      <p className="text-xs text-gray-400 mb-5 text-left pl-1">Use ? or * for blank/wildcard tiles</p>
 
-      {/* Advanced filters — ABOVE dictionary */}
-      <div className="mb-5">
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
-        >
-          <span className={`transition-transform duration-200 ${showFilters ? 'rotate-90' : ''}`}>▶</span>
-          Advanced Filters
-          {(startsWith || endsWith || mustInclude || minLength > 2) && (
-            <span className="bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full">Active</span>
-          )}
-        </button>
+      <p className="text-xs text-gray-400 mb-4 text-left">Tip: Use ? or * as wildcard (blank tile)</p>
 
-        {showFilters && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 p-4 bg-blue-50 rounded-xl border border-blue-100">
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Starts with</label>
-              <input type="text" value={startsWith} onChange={e => setStartsWith(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. re" maxLength={6}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 bg-white" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Ends with</label>
-              <input type="text" value={endsWith} onChange={e => setEndsWith(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. ing" maxLength={6}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 bg-white" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Must include</label>
-              <input type="text" value={mustInclude} onChange={e => setMustInclude(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. at" maxLength={6}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 bg-white" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Min length</label>
-              <select value={minLength} onChange={e => setMinLength(Number(e.target.value))}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 bg-white">
-                {[2,3,4,5,6,7].map(n => <option key={n} value={n}>{n}+ letters</option>)}
-              </select>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Dictionary selector — BELOW advanced filters */}
-      <div className="flex flex-wrap gap-2 mb-6 justify-center">
+      <div className="flex flex-wrap gap-2 mb-4 justify-center">
         {DICTIONARIES.map(dict => (
           <button
             key={dict.id}
             onClick={() => setDictionary(dict.id)}
-            className={`px-4 py-2 rounded-xl text-sm font-semibold border-2 transition-all ${
-              dictionary === dict.id
-                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
-                : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600'
-            }`}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${dictionary === dict.id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'}`}
           >
-            <span className="block">{dict.label}</span>
-            <span className={`block text-xs font-normal ${dictionary === dict.id ? 'text-blue-100' : 'text-gray-400'}`}>{dict.sub}</span>
+            {dict.label}
           </button>
         ))}
       </div>
 
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 mb-4 text-sm">
-          {error}
+      <details className="mb-6 text-left">
+        <summary className="text-sm text-blue-600 cursor-pointer hover:text-blue-700 font-medium mb-2">Advanced filters</summary>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
+          <div>
+            <label className="block text-xs text-gray-500 mb-1">Starts with</label>
+            <input type="text" value={startsWith} onChange={e => setStartsWith(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. re" maxLength={6} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
+          </div>
+          <div>
+            <label className="block text-xs text-gray-500 mb-1">Ends with</label>
+            <input type="text" value={endsWith} onChange={e => setEndsWith(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. ing" maxLength={6} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
+          </div>
+          <div>
+            <label className="block text-xs text-gray-500 mb-1">Must include</label>
+            <input type="text" value={mustInclude} onChange={e => setMustInclude(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. at" maxLength={6} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
+          </div>
+          <div>
+            <label className="block text-xs text-gray-500 mb-1">Min length</label>
+            <select value={minLength} onChange={e => setMinLength(Number(e.target.value))} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400">
+              {[2,3,4,5,6,7].map(n => <option key={n} value={n}>{n}+ letters</option>)}
+            </select>
+          </div>
         </div>
-      )}
+      </details>
 
-      {/* Results */}
+      {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 mb-4 text-sm">{error}</div>}
+
       {results && (
         <div className="text-left mt-2">
-          <div className="flex items-center justify-between mb-5 pb-3 border-b border-gray-100">
-            <p className="text-sm text-gray-600">
-              <strong className="text-blue-600 text-lg">{results.total.toLocaleString()}</strong>
-              <span className="ml-1">words found from</span>
-              <strong className="ml-1 font-mono">{letters.toUpperCase()}</strong>
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm text-gray-500">
+              Found <strong>{results.total.toLocaleString()}</strong> words from <strong>{letters.toUpperCase()}</strong>
             </p>
             <div className="flex gap-2">
-              <button onClick={() => setSortBy('length')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold border-2 transition-all ${sortBy === 'length' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400'}`}>
+              <button onClick={() => setSortBy('length')} className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${sortBy === 'length' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'}`}>
                 By Length
               </button>
-              <button onClick={() => setSortBy('score')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold border-2 transition-all ${sortBy === 'score' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400'}`}>
+              <button onClick={() => setSortBy('score')} className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${sortBy === 'score' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'}`}>
                 By Score
               </button>
             </div>
           </div>
 
           {results.total === 0 ? (
-            <div className="text-center py-12 text-gray-400">
-              <div className="text-4xl mb-3">🔍</div>
-              <p>No words found. Try removing some filters.</p>
-            </div>
+            <div className="text-center py-8 text-gray-400">No words found. Try removing some filters.</div>
           ) : (
             Object.entries(getSortedGroups(results.grouped))
               .sort(([a], [b]) => sortBy === 'length' ? Number(b) - Number(a) : 0)
               .map(([groupKey, words]) => (
-                <div key={groupKey} className="mb-7">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-bold text-white bg-blue-500 px-2 py-0.5 rounded-full">
-                      {sortBy === 'length' ? `${groupKey} letters` : 'Top scores'}
-                    </span>
-                    <span className="text-xs text-gray-400">{words.length} words</span>
-                    <div className="flex-1 h-px bg-gray-100"></div>
-                  </div>
+                <div key={groupKey} className="mb-6">
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                    {sortBy === 'length' ? `${groupKey} letters (${words.length})` : `Top scoring words (${words.length})`}
+                  </h3>
                   <div className="flex flex-wrap gap-2">
                     {words.map(word => (
-                      <span key={word}
-                        className="inline-flex items-center gap-1.5 bg-white border border-gray-200 hover:border-blue-400 hover:bg-blue-50 hover:shadow-sm rounded-lg px-3 py-2 text-sm font-medium text-gray-800 cursor-pointer transition-all">
+                      <span key={word} className="inline-flex items-center gap-1.5 bg-white border border-gray-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-800 cursor-pointer transition-colors">
                         {word}
                         <ScoreBadge score={getWordScore(word)} />
                       </span>
