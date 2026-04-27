@@ -91,6 +91,10 @@ export default function HomePage() {
       </section>
 
       <footer className="border-t border-gray-200 py-6 px-4 text-center text-sm text-gray-400">
+        <nav className="flex justify-center gap-6 mb-3">
+          <Link href="/about" className="hover:text-blue-600 transition-colors">About</Link>
+          <Link href="/privacy-policy" className="hover:text-blue-600 transition-colors">Privacy Policy</Link>
+        </nav>
         <p>© {new Date().getFullYear()} WordUnscrambler. All rights reserved.</p>
       </footer>
     </main>

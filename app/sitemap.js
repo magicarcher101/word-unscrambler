@@ -5,6 +5,8 @@ export default function sitemap() {
 
   const staticPages = [
     { url: baseUrl, lastModified: today, changeFrequency: 'daily', priority: 1.0 },
+    { url: `${baseUrl}/about`, lastModified: today, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${baseUrl}/privacy-policy`, lastModified: today, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   const wordsStartingWith = letters.map(letter => ({
