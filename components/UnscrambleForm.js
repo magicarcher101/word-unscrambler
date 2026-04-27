@@ -92,7 +92,7 @@ export default function UnscrambleForm({ initialLetters = '' }) {
       {/* Advanced filters — ABOVE dictionary */}
       <details className="mb-4 text-left">
         <summary className="text-sm text-blue-600 cursor-pointer hover:text-blue-700 font-medium mb-2">
-          ▶ Advanced filters
+          Advanced filters
         </summary>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
           <div>
