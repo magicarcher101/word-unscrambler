@@ -32,7 +32,7 @@ function ScoreBadge({ score }) {
 
 export default function UnscrambleForm({ initialLetters = '' }) {
   const [letters, setLetters] = useState(initialLetters);
-  const [dictionary, setDictionary] = useState('enable');
+  const [dictionary, setDictionary] = useState('twl');
   const [startsWith, setStartsWith] = useState('');
   const [endsWith, setEndsWith] = useState('');
   const [mustInclude, setMustInclude] = useState('');
