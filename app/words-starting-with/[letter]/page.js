@@ -40,16 +40,6 @@ export default async function WordsStartingWithPage({ params }) {
 
   return (
     <main className="min-h-screen bg-white">
-      <header className="bg-blue-600 text-white py-4 shadow-md">
-        <div className="max-w-4xl mx-auto px-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold">WordUnscrambler</Link>
-          <nav className="hidden md:flex gap-6 text-sm font-medium">
-            <Link href="/words-starting-with/a" className="hover:text-blue-200">Words Starting With</Link>
-            <Link href="/words-ending-with/a" className="hover:text-blue-200">Words Ending With</Link>
-          </nav>
-        </div>
-      </header>
-
       <div className="max-w-4xl mx-auto px-4 py-8">
         <nav className="text-sm text-gray-500 mb-6">
           <Link href="/" className="hover:text-blue-600">Home</Link>
@@ -100,7 +90,6 @@ export default async function WordsStartingWithPage({ params }) {
       <footer className="border-t border-gray-200 py-6 px-4 text-center text-sm text-gray-400 mt-8">
         <p>© {new Date().getFullYear()} WordUnscrambler</p>
       </footer>
-
       <BackToTop />
     </main>
   );
