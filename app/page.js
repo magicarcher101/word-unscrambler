@@ -9,16 +9,6 @@ export const metadata = {
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white">
-      <header className="bg-blue-600 text-white py-4 shadow-md">
-        <div className="max-w-4xl mx-auto px-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold tracking-tight">WordUnscrambler</Link>
-          <nav className="hidden md:flex gap-6 text-sm font-medium">
-            <Link href="/words-starting-with/a" className="hover:text-blue-200 transition-colors">Words Starting With</Link>
-            <Link href="/words-ending-with/a" className="hover:text-blue-200 transition-colors">Words Ending With</Link>
-          </nav>
-        </div>
-      </header>
-
       <section className="bg-gradient-to-b from-blue-50 to-white py-12 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">Word Unscrambler</h1>
