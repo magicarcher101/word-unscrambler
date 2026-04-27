@@ -17,17 +17,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="max-w-4xl mx-auto px-4 py-10">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Browse Words</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      {/* 5 Letter Words Section */}
+      <section className="max-w-4xl mx-auto px-4 py-10 border-b border-gray-100">
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h2 className="text-xl font-bold text-gray-800">🟩 5 Letter Words</h2>
+            <p className="text-sm text-gray-500 mt-1">Perfect for Wordle — browse by starting or ending letter</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <h3 className="text-sm font-semibold text-gray-600 mb-2">Starting With</h3>
+            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5">
+              {['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'].map(letter => (
+                <Link key={letter} href={`/5-letter-words-starting-with/${letter}`}
+                  className="block bg-green-50 border border-green-200 rounded-lg py-2 text-center text-sm font-bold text-green-700 hover:bg-green-100 hover:border-green-400 transition-all">
+                  {letter.toUpperCase()}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-gray-600 mb-2">Ending With</h3>
+            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5">
+              {['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'].map(letter => (
+                <Link key={letter} href={`/5-letter-words-ending-with/${letter}`}
+                  className="block bg-yellow-50 border border-yellow-200 rounded-lg py-2 text-center text-sm font-bold text-yellow-700 hover:bg-yellow-100 hover:border-yellow-400 transition-all">
+                  {letter.toUpperCase()}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Browse All Words Section */}
+      <section className="max-w-4xl mx-auto px-4 py-10 border-b border-gray-100">
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h2 className="text-xl font-bold text-gray-800">Browse All Words A–Z</h2>
+            <p className="text-sm text-gray-500 mt-1">Full word lists for Scrabble and Words with Friends</p>
+          </div>
+          <Link href="/words-ending-with/a" className="text-sm text-blue-600 hover:underline">Words Ending With →</Link>
+        </div>
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
           {['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'].map(letter => (
-            <Link key={letter} href={`/words-starting-with/${letter}`} className="block bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-center text-sm font-medium text-blue-600 hover:bg-blue-50 hover:border-blue-300 transition-colors">
-              Words starting with {letter.toUpperCase()}
+            <Link key={letter} href={`/words-starting-with/${letter}`}
+              className="block bg-gray-50 border-2 border-gray-200 rounded-xl py-3 text-center text-sm font-bold text-gray-700 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-all">
+              {letter.toUpperCase()}
             </Link>
           ))}
         </div>
       </section>
 
+      {/* Dictionary info */}
       <section className="bg-gray-50 border-t border-gray-100 py-10 px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Supported Dictionaries</h2>
