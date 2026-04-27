@@ -9,9 +9,9 @@ const DICTIONARIES = [
 ];
 
 const SCRABBLE_SCORES = {
-  a:1, b:3, c:3, d:2, e:1, f:4, g:2, h:4, i:1, j:8,
-  k:5, l:1, m:3, n:1, o:1, p:3, q:10, r:1, s:1, t:1,
-  u:1, v:4, w:4, x:8, y:4, z:10
+  a:1,b:3,c:3,d:2,e:1,f:4,g:2,h:4,i:1,j:8,
+  k:5,l:1,m:3,n:1,o:1,p:3,q:10,r:1,s:1,t:1,
+  u:1,v:4,w:4,x:8,y:4,z:10
 };
 
 function getWordScore(word) {
@@ -77,67 +77,62 @@ export default function UnscrambleForm({ initialLetters = '' }) {
 
   return (
     <div className="w-full">
+      {/* Main input */}
       <div className="flex gap-2 mb-3">
-        <input
-          type="text"
-          value={letters}
-          onChange={e => setLetters(e.target.value.toUpperCase())}
-          onKeyDown={handleKeyDown}
-          placeholder="Enter letters (e.g. TABLES)"
-          maxLength={15}
-          className="flex-1 text-xl font-mono tracking-widest border-2 border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 uppercase"
-          autoComplete="off"
-          spellCheck="false"
-        />
-        <button
-          onClick={handleUnscramble}
-          disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-lg"
-        >
+        <input type="text" value={letters} onChange={e => setLetters(e.target.value.toUpperCase())} onKeyDown={handleKeyDown} placeholder="Enter letters (e.g. TABLES)" maxLength={15}
+          className="flex-1 text-xl font-mono tracking-widest border-2 border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 uppercase" autoComplete="off" spellCheck="false" />
+        <button onClick={handleUnscramble} disabled={loading}
+          className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-lg">
           {loading ? '...' : 'Go'}
         </button>
       </div>
 
       <p className="text-xs text-gray-400 mb-4 text-left">Tip: Use ? or * as wildcard (blank tile)</p>
 
-      <div className="flex flex-wrap gap-2 mb-4 justify-center">
-        {DICTIONARIES.map(dict => (
-          <button
-            key={dict.id}
-            onClick={() => setDictionary(dict.id)}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${dictionary === dict.id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'}`}
-          >
-            {dict.label}
-          </button>
-        ))}
-      </div>
-
-      <details className="mb-6 text-left">
-        <summary className="text-sm text-blue-600 cursor-pointer hover:text-blue-700 font-medium mb-2">Advanced filters</summary>
+      {/* Advanced filters — ABOVE dictionary */}
+      <details className="mb-4 text-left">
+        <summary className="text-sm text-blue-600 cursor-pointer hover:text-blue-700 font-medium mb-2">
+          ▶ Advanced filters
+        </summary>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
           <div>
             <label className="block text-xs text-gray-500 mb-1">Starts with</label>
-            <input type="text" value={startsWith} onChange={e => setStartsWith(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. re" maxLength={6} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
+            <input type="text" value={startsWith} onChange={e => setStartsWith(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. re" maxLength={6}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
           </div>
           <div>
             <label className="block text-xs text-gray-500 mb-1">Ends with</label>
-            <input type="text" value={endsWith} onChange={e => setEndsWith(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. ing" maxLength={6} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
+            <input type="text" value={endsWith} onChange={e => setEndsWith(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. ing" maxLength={6}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
           </div>
           <div>
             <label className="block text-xs text-gray-500 mb-1">Must include</label>
-            <input type="text" value={mustInclude} onChange={e => setMustInclude(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. at" maxLength={6} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
+            <input type="text" value={mustInclude} onChange={e => setMustInclude(e.target.value.toLowerCase())} onKeyDown={handleKeyDown} placeholder="e.g. at" maxLength={6}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400" />
           </div>
           <div>
             <label className="block text-xs text-gray-500 mb-1">Min length</label>
-            <select value={minLength} onChange={e => setMinLength(Number(e.target.value))} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400">
+            <select value={minLength} onChange={e => setMinLength(Number(e.target.value))}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400">
               {[2,3,4,5,6,7].map(n => <option key={n} value={n}>{n}+ letters</option>)}
             </select>
           </div>
         </div>
       </details>
 
+      {/* Dictionary selector — BELOW advanced filters */}
+      <div className="flex flex-wrap gap-2 mb-6 justify-center">
+        {DICTIONARIES.map(dict => (
+          <button key={dict.id} onClick={() => setDictionary(dict.id)}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${dictionary === dict.id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'}`}>
+            {dict.label}
+          </button>
+        ))}
+      </div>
+
       {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 mb-4 text-sm">{error}</div>}
 
+      {/* Results */}
       {results && (
         <div className="text-left mt-2">
           <div className="flex items-center justify-between mb-4">
@@ -145,10 +140,12 @@ export default function UnscrambleForm({ initialLetters = '' }) {
               Found <strong>{results.total.toLocaleString()}</strong> words from <strong>{letters.toUpperCase()}</strong>
             </p>
             <div className="flex gap-2">
-              <button onClick={() => setSortBy('length')} className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${sortBy === 'length' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'}`}>
+              <button onClick={() => setSortBy('length')}
+                className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${sortBy === 'length' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'}`}>
                 By Length
               </button>
-              <button onClick={() => setSortBy('score')} className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${sortBy === 'score' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'}`}>
+              <button onClick={() => setSortBy('score')}
+                className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${sortBy === 'score' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'}`}>
                 By Score
               </button>
             </div>
