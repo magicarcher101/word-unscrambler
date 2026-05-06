@@ -14,6 +14,9 @@ export async function generateMetadata({ params }) {
   return {
     title: `Words Starting With ${letter.toUpperCase()} - Word List for Scrabble & WWF`,
     description: `Complete list of words starting with ${letter.toUpperCase()}. Valid for Scrabble, Words with Friends, and other word games.`,
+    alternates: {
+      canonical: `/words-starting-with/${letter}`,
+    },
   };
 }
 

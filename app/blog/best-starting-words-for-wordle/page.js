@@ -6,7 +6,7 @@ const post = getPost('best-starting-words-for-wordle');
 export const metadata = {
   title: post.title,
   description: post.description,
-  alternates: { canonical: `https://wordunscrambler.gg/blog/${post.slug}` },
+  alternates: { canonical: `/blog/${post.slug}` },
   openGraph: {
     title: post.title,
     description: post.description,

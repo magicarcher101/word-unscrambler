@@ -3,7 +3,7 @@ import Link from 'next/link';
 export const metadata = {
   title: 'Privacy Policy',
   description: 'Privacy policy for WordUnscrambler.gg — how we handle data, cookies, and analytics.',
-  alternates: { canonical: 'https://wordunscrambler.gg/privacy-policy' },
+  alternates: { canonical: '/privacy-policy' },
 };
 
 export default function PrivacyPolicyPage() {

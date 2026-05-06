@@ -14,6 +14,9 @@ export async function generateMetadata({ params }) {
   return {
     title: `5 Letter Words Starting With ${letter.toUpperCase()} - Wordle & Scrabble Word List`,
     description: `Complete list of 5 letter words starting with ${letter.toUpperCase()}. Perfect for Wordle, Scrabble, and Words with Friends.`,
+    alternates: {
+      canonical: `/5-letter-words-starting-with/${letter}`,
+    },
   };
 }
 

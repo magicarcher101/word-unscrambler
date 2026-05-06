@@ -4,7 +4,7 @@ import { blogPosts } from '@/lib/blog-posts';
 export const metadata = {
   title: 'Blog — Word Game Tips, Strategy & Guides',
   description: 'Strategy guides, tips, and word lists for Scrabble, Words with Friends, and Wordle from the WordUnscrambler.gg team.',
-  alternates: { canonical: 'https://wordunscrambler.gg/blog' },
+  alternates: { canonical: '/blog' },
 };
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {

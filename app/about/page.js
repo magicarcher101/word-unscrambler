@@ -3,7 +3,7 @@ import Link from 'next/link';
 export const metadata = {
   title: 'About',
   description: 'About WordUnscrambler.gg — a fast, free word unscrambler for Scrabble, Words with Friends, and Wordle.',
-  alternates: { canonical: 'https://wordunscrambler.gg/about' },
+  alternates: { canonical: '/about' },
 };
 
 export default function AboutPage() {
