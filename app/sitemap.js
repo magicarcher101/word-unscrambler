@@ -29,22 +29,22 @@ export default function sitemap() {
     lastModified: today, changeFrequency: 'monthly', priority: 0.8,
   }));
 
-  const fiveLetterStarting = letters.map(letter => ({
-    url: `${baseUrl}/5-letter-words-starting-with/${letter}`,
-    lastModified: today, changeFrequency: 'monthly', priority: 0.9,
-  }));
-
-  const fiveLetterEnding = letters.map(letter => ({
-    url: `${baseUrl}/5-letter-words-ending-with/${letter}`,
-    lastModified: today, changeFrequency: 'monthly', priority: 0.9,
-  }));
+  const lengthPages = [4, 5, 6, 7].flatMap(n => [
+    ...letters.map(letter => ({
+      url: `${baseUrl}/${n}-letter-words-starting-with/${letter}`,
+      lastModified: today, changeFrequency: 'monthly', priority: 0.9,
+    })),
+    ...letters.map(letter => ({
+      url: `${baseUrl}/${n}-letter-words-ending-with/${letter}`,
+      lastModified: today, changeFrequency: 'monthly', priority: 0.9,
+    })),
+  ]);
 
   return [
     ...staticPages,
     ...blogPages,
     ...wordsStartingWith,
     ...wordsEndingWith,
-    ...fiveLetterStarting,
-    ...fiveLetterEnding,
+    ...lengthPages,
   ];
 }
