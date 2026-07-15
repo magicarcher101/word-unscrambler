@@ -120,7 +120,7 @@ export default async function UnscramblePage({ params }) {
             ))}
           </div>
 
-          <UnscrambleForm initialLetters={upper} />
+          <UnscrambleForm initialLetters={upper} navigateOnSubmit />
         </div>
       </section>
 

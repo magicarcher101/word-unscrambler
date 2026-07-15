@@ -16,7 +16,7 @@ export default function HomePage() {
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">Word Unscrambler</h1>
           <p className="text-lg text-gray-600 mb-8">Enter your letters and instantly find every possible word. Perfect for Scrabble, Words with Friends, and Wordle.</p>
-          <UnscrambleForm />
+          <UnscrambleForm navigateOnSubmit />
         </div>
       </section>
 

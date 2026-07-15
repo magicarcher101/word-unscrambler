@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
 const DICTIONARIES = [
   { id: 'enable', label: 'ENABLE (Words with Friends)' },
@@ -30,7 +31,8 @@ function ScoreBadge({ score }) {
   );
 }
 
-export default function UnscrambleForm({ initialLetters = '' }) {
+export default function UnscrambleForm({ initialLetters = '', navigateOnSubmit = false }) {
+  const router = useRouter();
   const [letters, setLetters] = useState(initialLetters);
   const [dictionary, setDictionary] = useState('twl');
   const [startsWith, setStartsWith] = useState('');
@@ -45,6 +47,18 @@ export default function UnscrambleForm({ initialLetters = '' }) {
   const handleUnscramble = useCallback(async () => {
     const cleaned = letters.trim();
     if (!cleaned) { setError('Please enter some letters.'); return; }
+
+    if (navigateOnSubmit) {
+      const slug = cleaned.toLowerCase().replace(/[^a-z]/g, '');
+      if (slug.length < 2 || slug.length > 15) {
+        setError('Enter 2 to 15 letters (A–Z only).');
+        return;
+      }
+      setError(''); setLoading(true);
+      router.push(`/unscramble/${slug}`);
+      return;
+    }
+
     setError(''); setLoading(true); setResults(null);
     try {
       const params = new URLSearchParams({
@@ -62,7 +76,7 @@ export default function UnscrambleForm({ initialLetters = '' }) {
     } finally {
       setLoading(false);
     }
-  }, [letters, dictionary, startsWith, endsWith, mustInclude, minLength]);
+  }, [letters, dictionary, startsWith, endsWith, mustInclude, minLength, navigateOnSubmit, router]);
 
   const handleKeyDown = (e) => { if (e.key === 'Enter') handleUnscramble(); };
 
