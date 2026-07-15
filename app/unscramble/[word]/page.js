@@ -5,8 +5,9 @@ import { notFound } from 'next/navigation';
 import BackToTop from '@/components/BackToTop';
 import UnscrambleForm from '@/components/UnscrambleForm';
 import HomepageSections from '@/components/HomepageSections';
+import { getStaticUnscrambleWords } from '@/lib/unscramble-words';
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 const SCRABBLE_SCORES = {
   a:1,e:1,i:1,l:1,n:1,o:1,r:1,s:1,t:1,u:1,
@@ -68,15 +69,7 @@ function findAllWords(letters) {
 }
 
 export async function generateStaticParams() {
-  const index = getIndex();
-  const sampleKeys = ['abelst', 'achhiimnopps', 'abceghilnoprtuy'];
-  const words = new Set();
-  for (const key of sampleKeys) {
-    const anagrams = index.get(key) || [];
-    for (const w of anagrams) words.add(w.toLowerCase());
-  }
-  if (words.size === 0) words.add('tables');
-  return Array.from(words).map(word => ({ word }));
+  return getStaticUnscrambleWords().map(word => ({ word }));
 }
 
 export async function generateMetadata({ params }) {

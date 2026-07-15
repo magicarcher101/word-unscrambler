@@ -1,30 +1,12 @@
-import path from 'path';
-import fs from 'fs';
 import { blogPosts } from '@/lib/blog-posts';
-
-function getUnscrambleSampleWords() {
-  const filePath = path.join(process.cwd(), 'public', 'dictionaries', 'twl.json');
-  const words = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-  const sampleKeys = ['abelst', 'achhiimnopps', 'abceghilnoprtuy'];
-  const index = new Map();
-  for (const w of words) {
-    const key = w.toLowerCase().split('').sort().join('');
-    if (!index.has(key)) index.set(key, []);
-    index.get(key).push(w);
-  }
-  const result = new Set();
-  for (const key of sampleKeys) {
-    for (const w of (index.get(key) || [])) result.add(w.toLowerCase());
-  }
-  return Array.from(result);
-}
+import { getStaticUnscrambleWords } from '@/lib/unscramble-words';
 
 export default function sitemap() {
   const baseUrl = 'https://wordunscrambler.gg';
   const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
   const today = new Date().toISOString();
 
-  const unscramblePages = getUnscrambleSampleWords().map(word => ({
+  const unscramblePages = getStaticUnscrambleWords().map(word => ({
     url: `${baseUrl}/unscramble/${word}`,
     lastModified: today, changeFrequency: 'monthly', priority: 0.85,
   }));
