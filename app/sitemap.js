@@ -1,12 +1,12 @@
 import { blogPosts } from '@/lib/blog-posts';
-import { getStaticUnscrambleWords } from '@/lib/unscramble-words';
+import { getSitemapUnscrambleWords } from '@/lib/unscramble-words';
 
 export default function sitemap() {
   const baseUrl = 'https://wordunscrambler.gg';
   const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
   const today = new Date().toISOString();
 
-  const unscramblePages = getStaticUnscrambleWords().map(word => ({
+  const unscramblePages = getSitemapUnscrambleWords().map(word => ({
     url: `${baseUrl}/unscramble/${word}`,
     lastModified: today, changeFrequency: 'monthly', priority: 0.85,
   }));
